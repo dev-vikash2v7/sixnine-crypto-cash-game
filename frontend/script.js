@@ -1,4 +1,4 @@
-const API_URL = window.location.origin; 
+const API_URL = process.env.PROD ? "https://sixnine-crypto-cash-game.onrender.com" : "http://localhost:3000"; 
 
 let currRound = { roundNumber: null };
 let crashPoint = null;

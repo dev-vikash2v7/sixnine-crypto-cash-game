@@ -11,11 +11,7 @@ import walletRoutes from "./src/routes/walletRoutes.js";
 import roundRoutes from "./src/routes/roundRoutes.js";
 import socketHandler from "./src/socketHandler.js";
 import { startGameLoop } from "./src/services/roundService.js";
-import { fileURLToPath } from "url";
-import path from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -31,7 +27,6 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/bet", betRoutes);
 app.use("/cashout", cashoutRoutes);
@@ -41,7 +36,7 @@ app.use("/round", roundRoutes);
 
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.status(200).send('<h1>Hello from Crypto Cashout Backend</h1>')
 });
 
 socketHandler(io);
