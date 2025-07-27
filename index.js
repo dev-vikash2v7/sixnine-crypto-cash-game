@@ -48,7 +48,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
     startGameLoop(io);
-    server.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT || 3000, () => {
       console.log(`Server running on http://localhost:${process.env.PORT}`);
     });
   })
