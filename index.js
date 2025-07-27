@@ -19,6 +19,8 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
+const port = process.env.PORT || 3000;
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -48,8 +50,8 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
     startGameLoop(io);
-    server.listen(process.env.PORT || 3000, () => {
-      console.log(`Server running on http://localhost:${process.env.PORT}`);
+    server.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
     });
   })
   .catch((e) => console.error("Mongo Connect Error", e));
