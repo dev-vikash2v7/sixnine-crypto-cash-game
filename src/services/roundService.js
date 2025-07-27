@@ -1,12 +1,11 @@
 import GameRound from "../models/GameRound.js";
 import { generateSeed, hashSeed, getCrashPoint } from "../utils/provablyFair.js";
 
-// Keeps round number in-memory; on restart, should query database
 let roundNumber = 1;
 
 export function startGameLoop(io) {
   async function startNextRound() {
-    // New round: waiting bets for 10s
+
     const serverSeed = generateSeed();
     const serverSeedHash = hashSeed(serverSeed);
     const crashPoint = getCrashPoint(serverSeed);
@@ -48,7 +47,7 @@ export function startGameLoop(io) {
           setTimeout(startNextRound, 5000); // Start next after 5s
         }
       }, stepMs);
-    }, 10000); // Bets accepted for 10s
+    }, 10000); 
   }
   startNextRound();
 }

@@ -7,7 +7,7 @@ const betSchema = new mongoose.Schema({
   amountCrypto: Number,
   cashoutMultiplier: Number,
   cashedOut: Boolean,
-  cashoutTime: Number // milliseconds since round start
+  cashoutTime: Number
 }, { _id: false });
 
 const gameRoundSchema = new mongoose.Schema({
