@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Crash Game – Vanilla JS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+
+    <h2>Crash Game Demo (HTML/JS)</h2>
+
+    <div class="form-row">
+      <label>Name:
+        <input id="playerName" type="text" value="Alice">
+      </label>
+      <button id="walletBtn">Check Wallet</button>
+    </div>
+    <div class="wallet" id="wallet">
+      BTC: 0 | ETH: 0 | USD: 0
+    </div>
+
+    <hr>
+    <h3>Place Bet (Next Round)</h3>
+    <div class="form-row">
+      <label>Crypto:
+        <select id="cryptoType">
+          <option value="btc">BTC</option>
+          <option value="eth">ETH</option>
+        </select>
+      </label>
+      <label>Amount ($):
+        <input id="amountUSD" type="number" min="1" value="10">
+      </label>
+      <button id="betBtn">Place Bet</button>
+    </div>
+    <hr>
+
+    <h3 id="roundHeading">Round # -</h3>
+    <div class="multiplier-row">
+      <span id="multiplier">Multiplier: x1.00</span>
+      <button id="cashoutBtn">Cash Out</button>
+    </div>
+    <div id="msg" class="msg"></div>
+
+    <hr>
+    <h3>Last 5 Rounds</h3>
+    <table id="historyTable" border="1" cellpadding="4">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Crash x</th>
+          <th>Bets</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+body {
+    font-family: sans-serif;
+    background: #f9fbfc;
+  }
+  .container {
+    max-width: 520px;
+    margin: 32px auto;
+    background: #fff;
+    border-radius: 7px;
+    border: 1px solid #dde3e6;
+    padding: 28px;
+    box-shadow: 0 2px 16px #dde3e65f;
+  }
+  .form-row {
+    margin: 10px 0;
+  }
+  .form-row > * {
+    margin-right: 10px;
+  }
+  .wallet {
+    margin: 8px 0;
+    padding: 6px 0;
+  }
+  .multiplier-row {
+    display: flex;
+    align-items: center;
+  }
+  .msg {
+    color: #1060ae;
+    margin: 10px 0 0 0;
+  }
+  button { cursor: pointer; }
+  tr:nth-child(even) { background: #f5f5f5; }
+  
