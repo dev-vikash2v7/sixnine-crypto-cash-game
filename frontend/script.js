@@ -7,6 +7,9 @@ const API_URL = isLocalhost
 
 console.log("API URL:", API_URL);
 
+  const socket = io(API_URL);
+
+
 let currRound = { roundNumber: null };
 let crashPoint = null;
 let multiplier = 1.0;
@@ -14,6 +17,7 @@ let multiplier = 1.0;
 const $ = (id) => document.getElementById(id);
 
 function setMsg(m) { $("msg").textContent = m; }
+
 function updateWalletDisplay({ btc=0, eth=0, usdEquivalent=0 }) {
   $("wallet").textContent = 
     `BTC: ${btc.toFixed(6)} | ETH: ${eth.toFixed(6)} | USD: ${usdEquivalent.toFixed(2)}`;
@@ -66,6 +70,15 @@ async function placeBet() {
     });
     let data = await r.json();
     if (!r.ok) throw new Error(data.error || "Bet failed");
+
+    currRound = { roundNumber: data.roundNumber };
+    crashPoint = null;
+    multiplier = 1.00;
+    $("multiplier").textContent = "Multiplier: x1.00";
+    $("cashoutBtn").disabled = false;
+    $("roundHeading").textContent = `Round #${data.roundNumber}`;
+
+
     setMsg(`Bet placed: $${amountUSD} (${cryptoType})`);
     loadWallet();
   } catch(e) {
@@ -84,6 +97,9 @@ async function cashOut() {
       body: JSON.stringify({ playerName })
     });
     let data = await r.json();
+
+    console.log("Cashout response:", data);
+
     if (!r.ok) throw new Error(data.error || "Fail");
     setMsg(`Cashed out at x${Number(data.multiplier).toFixed(2)}, payout: ${Number(data.payout).toFixed(6)}`);
     loadWallet();
@@ -104,25 +120,24 @@ window.onload = function() {
   loadHistory();
 
   
-  // -- SOCKET.IO --
-  const socket = io(API_URL);
+
 
   socket.on("round_start", (data) => {
-    currRound = { roundNumber: data.roundNumber };
-    crashPoint = null;
-    multiplier = 1.00;
-    $("multiplier").textContent = "Multiplier: x1.00";
-    $("cashoutBtn").disabled = false;
-    $("roundHeading").textContent = `Round #${data.roundNumber}`;
+ 
     setMsg("Round started. Place your bets!");
   });
+
+
   socket.on("multiplier_update", (data) => {
     multiplier = data.multiplier;
     $("multiplier").textContent = `Multiplier: x${Number(multiplier).toFixed(2)}`;
   });
+
+
   socket.on("round_crash", (data) => {
     crashPoint = data.crashPoint;
     setMsg(`Crash! at x${data.crashPoint}`);
+
     $("cashoutBtn").disabled = true;
     loadWallet();
     loadHistory();
