@@ -7,9 +7,14 @@ export async function cashout(req, res) {
   try {
     const { playerName } = req.body;
     const player = await Player.findOne({ name: playerName });
+
+console.log(`Cashout request for player: ${playerName}`);
+
     if (!player) return res.status(404).json({ error: "Player not found" });
 
     const round = await GameRound.findOne({ status: "in-progress" }).sort({ roundNumber: -1 });
+
+    
     if (!round) return res.status(400).json({ error: "No in-progress round" });
 
     const bet = round.bets.find(x => x.player.toString() === player._id.toString() && !x.cashedOut);
