@@ -8,12 +8,16 @@
 <body>
   <div class="container">
 
-    <h2>SixNine CryptoCrash Game </h2>
+    <h2> Realtime Crypto Crash Game </h2>
 
     <div class="form-row">
-      <label>Name:
-        <input id="playerName" type="text" value="Alice">
-      </label>
+     <label for="playerName">Name:
+  <select id="playerName" name="playerName">
+    <option value="Akash">Akash</option>
+    <option value="Shreyas">Shreyas</option>
+    <option value="Vikash" selected>Vikash</option>
+  </select>
+     </label>
       <button id="walletBtn">Check Wallet</button>
     </div>
     <div class="wallet" id="wallet">
